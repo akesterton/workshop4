@@ -12,48 +12,14 @@ mv /tmp/oc /usr/local/bin && \
 chmod +x /usr/local/bin/oc && \
 rm /tmp/*
 
-RUN curl -sL -o /tmp/tkn.tar.gz https://github.com/tektoncd/cli/releases/download/v0.9.0/tkn_0.9.0_Linux_x86_64.tar.gz && \
-tar -C /tmp -xf /tmp/tkn.tar.gz --no-same-owner && \
-mv /tmp/tkn /usr/local/bin && \
-chmod +x /usr/local/bin/tkn && \
-rm /tmp/*
-
-RUN curl -sL -o /tmp/kamel.tar.gz https://github.com/apache/camel-k/releases/download/1.0.0-RC2/camel-k-client-1.0.0-RC2-linux-64bit.tar.gz && \
-tar -C /tmp -xf /tmp/kamel.tar.gz --no-same-owner && \
-mv /tmp/kamel /usr/local/bin && \
-chmod +x /usr/local/bin/kamel && \
-rm /tmp/*
-
-RUN curl -sL -o /usr/local/bin/odo https://mirror.openshift.com/pub/openshift-v4/clients/odo/latest/odo-linux-amd64 && \
-chmod +x /usr/local/bin/odo
-
-RUN curl -sL -o /usr/local/bin/kn https://storage.googleapis.com/knative-nightly/client/latest/kn-linux-amd64 && \
-chmod +x /usr/local/bin/kn
-
-RUN curl -sL -o /tmp/kamelexamples.tar.gz https://github.com/apache/camel-k/releases/download/v1.1.0/camel-k-examples-1.1.0.tar.gz && \
-mkdir /tmp/examples && \
-tar -C /tmp/examples -xf /tmp/kamelexamples.tar.gz --no-same-owner && \
-mv /tmp/examples /workspace && \
-rm /tmp/*
-
-RUN dnf -y install podman container-selinux --enablerepo updates-testing
-
-RUN dnf -y install buildah container-selinux --enablerepo updates-testing
-
-RUN dnf -y install skopeo container-selinux --enablerepo updates-testing
-
-RUN dnf -y install java-1.8.0-openjdk java-11-openjdk java-1.8.0-openjdk-devel wget
+RUN curl -sL -o ./yq https://github.com/mikefarah/yq/releases/download/v4.25.1/yq_linux_amd64 && \
+chmod +x /usr/bin/yq
+# For instance, VERSION=v4.25.1 and BINARY=yq_linux_amd64
 
 RUN dnf -y install bash-completion
 
-RUN dnf -y install siege
-
 RUN oc completion bash >>/etc/bash_completion.d/oc_completion
 
-RUN cd /workspace && git clone https://github.com/utherp0/workshop4
-
-RUN chmod -R 777 /workspace/examples
-RUN chmod -R 777 /workspace/workshop4
 RUN chmod -R 777 /tmp
 
 WORKDIR /workspace
