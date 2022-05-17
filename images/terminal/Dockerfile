@@ -18,10 +18,6 @@ chmod +x /usr/bin/yq && \
 rm /tmp/*
 # For instance, VERSION=v4.25.1 and BINARY=yq_linux_amd64
 
-RUN dnf -y install bash-completion
-
-RUN oc completion bash >>/etc/bash_completion.d/oc_completion
-
 RUN chmod -R 777 /tmp
 
 WORKDIR /workspace
